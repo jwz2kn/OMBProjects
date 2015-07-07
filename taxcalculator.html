@@ -1,4 +1,8 @@
+<!DOCTYPE html>
+<html>
 <head>
+    <title>Albemarle County Tax Calculator</title>
+    <link href="css/m-styles.min.css" rel="="stylesheet">
     <script type = "text/javascript">
         function calc() {
         var d = document;
@@ -13,12 +17,13 @@
         d.getElementById('ps').value = Math.round(parkServices);
         d.getElementById('total_tax').value = Math.round(totalTax);
         }
+
     </script>
 </head>
 <style>
     body {
         font-family: Arial, sans-serif;
-        font-size: 0.8em;
+        font-size: 0.9em;
         background-color: lightgrey;
     }
 
@@ -51,8 +56,19 @@
         }
 </style>
 <body>
-    <input type="text" id="total_inc"> How much do you make? ($)<br> <br>
-    <input type="button" id="calc" name="calc" value="Estimate Tax" onclick="calc()"><br><br>
+    <h1>Albemarle County Tax Calculator</h1>
+    <script src="js/latestjquery.js"></script>
+    <script src="js/m-dropdown.min.js"></script>
+    <script src="js/m-radio.min.js"></script>
+    
+    <input type="text" id="total_inc" placeholder="Ur Moolah in Dollaz"> How much do you make? ($)<br> <br>
+    
+    <form>
+        <input class="m-btn red rnd" type="submit" value="New Button" />
+    </form>
+
+    <input type="button" id="calc" name="calc" value="Estimate Tax" onclick="calc()"> to the nearest dollar<br><br>
+    
         <input type="text" id="edu" name="education" disabled=1> Education ($)<br>
         <input type="text" id="inf" name="infrastructure" disabled=1> Infrastructure ($)<br>
         <input type="text" id="ps" name="parkServices" disabled=1> Park Services ($)<br><br>
