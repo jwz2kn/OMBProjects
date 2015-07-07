@@ -1,0 +1,27 @@
+<head>
+    <script type = "text/javascript">
+        function calc() {
+        var d = document;
+        var total = parseFloat( d.getElementById( 'total' ).value);
+        
+        var education = total/2;
+        var infrastructure = total/3;
+        var parkServices = total/5;
+        d.getElementById( 'edu' ).value = education;
+        d.getElementById( 'inf' ).value = infrastructure;
+        d.getElementById( 'ps' ).value = parkServices;         
+        }
+    </script>
+</head>
+
+<body>
+    <input type="text" id="total"> How much do you make? ($)<br> <br>
+        
+        <input type="text" id="edu" name="education" disabled=1> Education ($)<br>
+        <input type="text" id="inf" name="infrastructure" disabled=1> Infrastructure ($)<br>
+        <input type="text" id="ps" name="parkServices" disabled=1> Park Services ($)<br>
+        
+            <input type="button" id="calc" name="calc" value="Calculate" onClick="calc()">
+        
+    </body>
+ </html>
