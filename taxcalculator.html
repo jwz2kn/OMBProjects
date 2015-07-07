@@ -2,26 +2,63 @@
     <script type = "text/javascript">
         function calc() {
         var d = document;
-        var total = parseFloat( d.getElementById( 'total' ).value);
+        var total = parseFloat( d.getElementById( 'total_inc' ).value);
         
-        var education = total/2;
-        var infrastructure = total/3;
-        var parkServices = total/5;
-        d.getElementById( 'edu' ).value = education;
-        d.getElementById( 'inf' ).value = infrastructure;
-        d.getElementById( 'ps' ).value = parkServices;         
+        var education = total * 0.05
+        var infrastructure = total * 0.1;
+        var parkServices = total * 0.04;
+        var totalTax = education + infrastructure + parkServices
+        d.getElementById( 'edu' ).value = Math.round(education);
+        d.getElementById( 'inf' ).value = Math.round(infrastructure);
+        d.getElementById('ps').value = Math.round(parkServices);
+        d.getElementById('total_tax').value = Math.round(totalTax);
         }
     </script>
 </head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 0.8em;
+        background-color: lightgrey;
+    }
 
+    header, footer, section, article {
+        border: 1px solid grey;
+        margin: 5px;
+        margin-bottom: 15px;
+        padding: 8px;
+        background-color: white;
+    }
+
+    header, footer {
+        color: white;
+        background-color: #444;
+        margin-bottom: 5px;
+    }
+
+    section {
+        background-color: #ddd;
+    }
+
+    nav ul {
+        margin: 0;
+        padding: 0;
+    }
+
+        nav ul li {
+            display: inline;
+            margin: 5px;
+        }
+</style>
 <body>
-    <input type="text" id="total"> How much do you make? ($)<br> <br>
-        
+    <input type="text" id="total_inc"> How much do you make? ($)<br> <br>
+    <input type="button" id="calc" name="calc" value="Estimate Tax" onclick="calc()"><br><br>
         <input type="text" id="edu" name="education" disabled=1> Education ($)<br>
         <input type="text" id="inf" name="infrastructure" disabled=1> Infrastructure ($)<br>
-        <input type="text" id="ps" name="parkServices" disabled=1> Park Services ($)<br>
+        <input type="text" id="ps" name="parkServices" disabled=1> Park Services ($)<br><br>
         
-            <input type="button" id="calc" name="calc" value="Calculate" onClick="calc()">
+            
+    <input type="text" id="total_tax" name="totalTax" disabled=1> Total Albemarle County Tax ($)
         
     </body>
  </html>
