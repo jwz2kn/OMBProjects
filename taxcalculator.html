@@ -8,13 +8,13 @@
         var d = document;
         var total = parseFloat( d.getElementById( 'total_inc' ).value);
         
-        var education = total * 0.05
-        var infrastructure = total * 0.1;
-        var parkServices = total * 0.04;
-        var totalTax = education + infrastructure + parkServices
-        d.getElementById( 'edu' ).value = Math.round(education);
-        d.getElementById( 'inf' ).value = Math.round(infrastructure);
-        d.getElementById('ps').value = Math.round(parkServices);
+        var realEstate = total * 0.05
+        var fire = total * 0.1;
+        var stormWater = total * 0.04;
+        var totalTax = realEstate + fire + stormWater
+        d.getElementById( 're' ).value = Math.round(realEstate);
+        d.getElementById( 'fl' ).value = Math.round(fire);
+        d.getElementById('sw').value = Math.round(stormWater);
         d.getElementById('total_tax').value = Math.round(totalTax);
         }
 
@@ -54,27 +54,46 @@
             display: inline;
             margin: 5px;
         }
+type="text/css">
+body {
+    text-align: center;
+}
+
+p.one {
+// straight across bar if you add <p class="one">  </p> to body
+    border-style: solid;
+    border-width: 5px;
+    border-color: green;
+}
+
+
 </style>
 <body>
+<center>
+
+<div style="width:500px;height:500px;border:6px outset green;">
+
+
     <h1>Albemarle County Tax Calculator</h1>
     <script src="js/latestjquery.js"></script>
     <script src="js/m-dropdown.min.js"></script>
     <script src="js/m-radio.min.js"></script>
-    
-    <input type="text" id="total_inc" placeholder="Ur Moolah in Dollaz"> How much do you make? ($)<br> <br>
-    
-    <form>
-        <input class="m-btn red rnd" type="submit" value="New Button" />
-    </form>
 
-    <input type="button" id="calc" name="calc" value="Estimate Tax" onclick="calc()"> to the nearest dollar<br><br>
+        <br>  
+    	<b>Assessed Property Value</b> ($) <br> <input type="text" id="total_inc" placeholder="e.g. 2200"> <br> <br>
+
+    	<input type="button" id="calc" name="calc" value="Estimate Tax" onclick="calc()"> <br><br>
     
-        <input type="text" id="edu" name="education" disabled=1> Education ($)<br>
-        <input type="text" id="inf" name="infrastructure" disabled=1> Infrastructure ($)<br>
-        <input type="text" id="ps" name="parkServices" disabled=1> Park Services ($)<br><br>
+        <b>Real Estate Tax</b> ($) <br> <input type="text" id="re" name="realEstate" disabled=1> <br>
+        <b>Fire Levy</b> ($) <br> <input type="text" id="fl" name="fire" disabled=1> <br>
+        <b>Stormwater Management Fee</b> ($) <br> <input type="text" id="sw" name="stormWater" disabled=1 > <br><br><br>
         
             
-    <input type="text" id="total_tax" name="totalTax" disabled=1> Total Albemarle County Tax ($)
-        
+		<b>Total Albemarle County Tax</b> ($) <br> <input type="text" id="total_tax" name="totalTax" disabled=1> <br>
+
+
+	</div>    
+
+    </center>     
     </body>
  </html>
