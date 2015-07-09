@@ -66,6 +66,7 @@ p.one {
     border-color: green;
 }
 
+
 </style>
 
 <style type="text/css">
@@ -90,14 +91,14 @@ p.one {
 	-moz-border-radius-bottomleft:0px;
 	border-bottom-left-radius:0px;
 	text-indent:0;
-	border:1px solid #0f0806;
+	border:2px solid #0f0806;
 	display:inline-block;
 	color:#0a0a0a;
 	font-family:Arial;
-	font-size:16px;
+	font-size:17px;
 	font-weight:bold;
-	font-style:normal;
-	height:55px;
+	font-style: normal;
+	height:60px;
 	line-height:65px;
 	width:131px;
 	text-decoration:none;
@@ -112,7 +113,19 @@ p.one {
 }.classname:active {
 	position:relative;
 	top:1px;
-}</style>
+	}
+
+</style>
+
+<style>
+    .box{
+    	border:2px solid #456879;
+		border-radius:10px;
+		height: 22px;
+		width: 230px;
+		text-align: center;
+        }
+</style>
 
 
 <body>
@@ -127,17 +140,21 @@ p.one {
     <script src="OMBProjects/js/m-radio.min.js"></script>
 
         <br>  
-    	<b>Assessed Property Value</b> ($) <br> <input type="text" id="total_inc" placeholder="e.g. 2200"> <br> <br>
+    	<b>Assessed Property Value</b> ($) <br>
+    		<form name="test" id="test">
+        		<input type="text" class="box" id="total_inc" placeholder="e.g. 2200" />
+			</form> <br>
 
     	<a href="#" class="classname" onclick="calc()">Estimate Tax</a> <br><br>
     
-        <b>Real Estate Tax</b> ($) <br> <input type="text" id="re" name="realEstate" disabled=1> <br>
-        <b>Fire Levy</b> ($) <br> <input type="text" id="fl" name="fire" disabled=1> <br>
-        <b>Stormwater Management Fee</b> ($) <br> <input type="text" id="sw" name="stormWater" disabled=1 > <br><br><br>
-        
-            
-		<b>Total Albemarle County Tax</b> ($) <br> <input type="text" id="total_tax" name="totalTax" disabled=1> <br>
+        <b>Real Estate Tax</b> ($) <br> <input type="text" class="box" id="re" name="realEstate" disabled=1> <br>
+        <b>Fire Levy</b> ($) <br> <input type="text" class="box" id="fl" name="fire" disabled=1> <br>
+        <b>Stormwater Management Fee</b> ($) <br> <input type="text" class="box" id="sw" name="stormWater" disabled=1 > <br><br><br>
 
+            
+		<b>Total Albemarle County Tax</b> ($) <br> <input type="text" class="box" id="total_tax" name="totalTax" disabled=1> <br>
+
+</div>
 
 	</div>    
 
