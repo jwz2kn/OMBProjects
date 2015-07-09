@@ -66,8 +66,55 @@ p.one {
     border-color: green;
 }
 
-
 </style>
+
+<style type="text/css">
+.classname {
+	-moz-box-shadow:inset 0px 1px 0px 0px #000000;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #000000;
+	box-shadow:inset 0px 1px 0px 0px #000000;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #2eb812), color-stop(1, #bfffa6) );
+	background:-moz-linear-gradient( center top, #2eb812 5%, #bfffa6 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#2eb812', endColorstr='#bfffa6');
+	background-color:#2eb812;
+	-webkit-border-top-left-radius:37px;
+	-moz-border-radius-topleft:37px;
+	border-top-left-radius:37px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:37px;
+	-moz-border-radius-bottomright:37px;
+	border-bottom-right-radius:37px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0;
+	border:1px solid #0f0806;
+	display:inline-block;
+	color:#0a0a0a;
+	font-family:Arial;
+	font-size:16px;
+	font-weight:bold;
+	font-style:normal;
+	height:55px;
+	line-height:65px;
+	width:131px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #fff9d4;
+}
+.classname:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bfffa6), color-stop(1, #2eb812) );
+	background:-moz-linear-gradient( center top, #bfffa6 5%, #2eb812 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bfffa6', endColorstr='#2eb812');
+	background-color:#bfffa6;
+}.classname:active {
+	position:relative;
+	top:1px;
+}</style>
+
+
 <body>
 <center>
 
@@ -75,14 +122,14 @@ p.one {
 
 
     <h1>Albemarle County Tax Calculator</h1>
-    <script src="js/latestjquery.js"></script>
-    <script src="js/m-dropdown.min.js"></script>
-    <script src="js/m-radio.min.js"></script>
+    <script src="OMBProjects/js/latestjquery.js"></script>
+    <script src="OMBProjects/js/m-dropdown.min.js"></script>
+    <script src="OMBProjects/js/m-radio.min.js"></script>
 
         <br>  
     	<b>Assessed Property Value</b> ($) <br> <input type="text" id="total_inc" placeholder="e.g. 2200"> <br> <br>
 
-    	<input type="button" id="calc" name="calc" value="Estimate Tax" onclick="calc()"> <br><br>
+    	<a href="#" class="classname" onclick="calc()">Estimate Tax</a> <br><br>
     
         <b>Real Estate Tax</b> ($) <br> <input type="text" id="re" name="realEstate" disabled=1> <br>
         <b>Fire Levy</b> ($) <br> <input type="text" id="fl" name="fire" disabled=1> <br>
