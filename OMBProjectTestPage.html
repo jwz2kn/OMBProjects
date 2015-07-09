@@ -32,14 +32,33 @@
 
       var budgetData = response.getDataTable();
       
-	    var lchart = new google.visualization.PieChart(
-          document.getElementById('lchart_div'));
+	    var pchart = new google.visualization.PieChart(
+          document.getElementById('pchart_div'));
 	   
+          //chart.draw() is the most important I think
+	    pchart.draw(budgetData, {
+	        'title': 'OMB Sample Data',
+	        'curveType': 'function',
+	        'legend': { position: 'right' },
+	        'is3D': true,
+	        'colors': ['blue', 'orange', 'gold', 'maroon', 'black']
+	    });
+	    var lchart = new google.visualization.LineChart(
+            document.getElementById('lchart_div'));
+
           //chart.draw() is the most important I think
 	    lchart.draw(budgetData, {
 	        'title': 'OMB Sample Data',
 	        'curveType': 'function',
-	        'legend': { position: 'right' },
+	        'legend': { position: 'bottom' },
+	        'is3D': true,
+	        'colors': ['blue', 'orange', 'gold', 'maroon', 'black']
+	    });
+
+	    var cchart = new google.visualization.ColumnChart(
+            document.getElementById('cchart_div'));
+	    cchart.draw(budgetData, {
+	        'title': 'OMB Sample Data',
 	        'is3D': true,
 	        'colors': ['blue', 'orange', 'gold', 'maroon', 'black']
 	    });
@@ -125,6 +144,16 @@
           <div id="lchart_div" style="width: 1000px; height: 600px;"></div>
         </td>
       </tr>
+        <tr>
+            <td colspan=2>
+                <div id="pchart_div" style="width: 1000px; height: 600px;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2>
+                <div id="cchart_div" style="width: 1000px; height: 600px;"></div>
+            </td>
+        </tr>
     </table>
 
   </body>
