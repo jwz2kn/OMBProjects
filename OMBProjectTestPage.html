@@ -1,0 +1,124 @@
+﻿<html>
+<head>
+    <script type="text/javascript"
+            src="https://www.google.com/jsapi?autoload={
+            'modules':[{
+              'name':'visualization',
+              'version':'1',
+              'packages':['corechart', 'table', 'map']
+            }]
+          }"></script>
+    <script type="text/javascript">
+      //google.load('visualization', '1', {'packages': ['table', 'map', 'corechart']});
+      google.setOnLoadCallback(initialize);
+
+// LINE CHART EXPERIMENT!
+
+      function initialize() {
+        // The URL of the spreadsheet to source data from.
+        // "create" the data table
+          // SET THE RANGE OF THE URL to cover the columns A through (some_Letter) to create a bar graph with that many columns for the same x-axis entry
+        var queryString = encodeURIComponent('SELECT H:M')
+        var query = new google.visualization.Query(
+            'https://docs.google.com/a/virginia.edu/spreadsheets/d/1Rf33WeuGkOgVd6nT_SK1XwfdFK8J3ZZPQ_QbeyOGt5A/edit?usp=sharing/gviz/tq?tq=&range=A:H');
+        query.send(draw);
+      }
+
+      function draw(response) {
+        if (response.isError()) {
+          alert('Error in query');
+        }
+
+
+      var budgetData = response.getDataTable();
+      
+	    var lchart = new google.visualization.LineChart(
+          document.getElementById('lchart_div'));
+	   
+          //chart.draw() is the most important I think
+	    lchart.draw(budgetData, {
+	        'title': 'OMB Sample Data',
+	        'curveType': 'function',
+	        'legend': { position: 'bottom' },
+	        'is3D': true,
+	        'colors': ['blue', 'orange', 'gold', 'maroon', 'black']
+	    });
+	   
+	    function myClickHandler() {
+	        var selection = bchart.getSelection();
+
+	        for (var i = 0; i = selection.length; i++) {
+	            var item = selection[i];
+	            if (item.row != null && item.column != null) {
+	                message += 'it worked';
+	            } else if (item.row != null) {
+	                message += 'so it worked?';
+	            } else if (item.column != null) {
+	                message += 'lol we give up';
+	            }
+	            if (message == '') {
+	                message = 'failures';
+	            }
+	            alert(message);
+	        }
+	    }
+	   // google.visualization.events.addListener(lchart, 'select', myClickHandler);
+          //38.0300° N, 78.5600° W 
+          //38.8300° N, 77.2800° W
+          //37.3876° N, 122.0575° W
+          // for latitude, positive numbers are north, negative numbers are south
+          // for longitude, positive numbers are east, negative numbers are west
+	    var geoData = google.visualization.arrayToDataTable([
+               ['Lat', 'Lon', 'Name', 'Awesome?'],
+               [38.8300, -77.2800, 'Fairfax County', true],
+               [37.3876, -122.0575, 'Silicon Valley', true],
+               [38.0300, -78.5600, 'Albemarle County', true]
+	    ]);
+
+	    var geoView = new google.visualization.DataView(geoData);
+	    geoView.setColumns([0, 1]);
+
+	    var table =
+            new google.visualization.Table(document.getElementById('table_div'));
+	    table.draw(geoData, {showRowNumber: false, width: '100%', height: '100%'});
+
+	    var map =
+            new google.visualization.Map(document.getElementById('map_div'));
+	    map.draw(geoView, {showTip: true});
+
+          // Set a 'select' event listener for the table.
+          // When the table is selected, we set the selection on the map.
+	    google.visualization.events.addListener(table, 'select',
+            function() {
+                map.setSelection(table.getSelection());
+            });
+
+          // Set a 'select' event listener for the map.
+          // When the map is selected, we set the selection on the table.
+	    google.visualization.events.addListener(map, 'select',
+            function() {
+                table.setSelection(map.getSelection());
+            }); 
+    }
+    </script>
+  </head>
+
+  <body>
+    <table align="center">
+      <tr valign="top">
+        <td style="width: 50%;">
+          <div id="map_div" style="width: 1000px; height: 600px;"></div>
+        </td>
+        <td style="width: 50%;">
+          <div id="table_div" style="width: 1000px; height: 600px;"></div>
+        </td>
+      </tr>
+      <tr>
+        <td colSpan=2>
+          <div id="lchart_div" style="width: 2000px; height: 1000px;"></div>
+        </td>
+      </tr>
+    </table>
+
+  </body>
+</html>
