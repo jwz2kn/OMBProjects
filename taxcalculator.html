@@ -2,20 +2,48 @@
 <html>
 <head>
     <title>Albemarle County Tax Calculator</title>
-    <link href="css/m-styles.min.css" rel="="stylesheet">
+    <link href="css/m-styles.min.css" rel="stylesheet">
     <script type = "text/javascript">
         function calc() {
-        var d = document;
-        var total = parseFloat( d.getElementById( 'total_inc' ).value);
-        
-        var realEstate = total * 0.05
-        var fire = total * 0.1;
-        var stormWater = total * 0.04;
-        var totalTax = realEstate + fire + stormWater
-        d.getElementById( 're' ).value = Math.round(realEstate);
-        d.getElementById( 'fl' ).value = Math.round(fire);
-        d.getElementById('sw').value = Math.round(stormWater);
-        d.getElementById('total_tax').value = Math.round(totalTax);
+            var d = document;
+            var pl = 2;
+
+            //.replace removes the non-numeric values entered before we process the number, other than the . and the -
+            // var total = parseFloat(d.getElementById('total_inc').value.replace(/[^\d.-/]/g, ''));
+            //.replace removes the commas entered before we process the number
+            var total = parseFloat(d.getElementById('total_inc').value.replace(/,/g, ''));
+            if (total < 0) {
+                total = 0;
+            }
+            total = round(total, pl);
+            var realEstate = round(total * 0.05, pl)
+            var fire = round(total * 0.1, pl);
+            var stormWater = round(total * 0.04, pl);
+            var totalTax = round(realEstate + fire + stormWater, pl);
+            d.getElementById( 're' ).value = realEstate;
+            d.getElementById( 'fl' ).value = fire;
+            d.getElementById('sw').value = stormWater;
+            d.getElementById('total_tax').value = totalTax;
+        }
+
+        //generic accurate rounding function taken from solution online: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
+        function round(value, exp) {
+            if (typeof exp === 'undefined' || +exp === 0)
+                return Math.round(value);
+
+            value = +value;
+            exp = +exp;
+
+            if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0))
+                return NaN;
+
+            // Shift
+            value = value.toString().split('e');
+            value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp)));
+
+            // Shift back
+            value = value.toString().split('e');
+            return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
         }
 
     </script>
