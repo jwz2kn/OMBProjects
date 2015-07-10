@@ -18,13 +18,27 @@
                 total = 0;
             }
             total = round(total, pl);
-            var realEstate = round(total * 0.05, pl)
-            var fire = round(total * 0.1, pl);
-            var stormWater = round(total * 0.04, pl);
-            var totalTax = round(realEstate + fire + stormWater, pl);
+
+            var re_rate = parseFloat(d.getElementById('re_rate').value) / 100;
+            var pp_rate = parseFloat(d.getElementById('pp_rate').value) / 100;
+            //var mh_rate = parseFloat(d.getElementById('mh_rate').value) / 100;
+            var ps_rate = parseFloat(d.getElementById('ps_rate').value) / 100;
+            //var mt_rate = parseFloat(d.getElementById('mt_rate').value) / 100;
+
+
+            var realEstate = round(total * re_rate, pl)
+            var personal =  round(total * pp_rate, pl);
+            //var mobHome = round(total * mh_rate, pl);
+            var pubServ = round(total * ps_rate, pl);
+           // var machTool = round(total * mt_rate, pl);
+            var totalTax = round(realEstate + personal + pubServ, pl);
+
+
             d.getElementById('re').value = realEstate.toFixed(2);
-            d.getElementById('fl').value = fire.toFixed(2);
-            d.getElementById('sw').value = stormWater.toFixed(2);
+            d.getElementById('pp').value = personal.toFixed(2);
+            //d.getElementById('mh').value = mobHome.toFixed(2);
+            d.getElementById('ps').value = pubServ.toFixed(2);
+            //d.getElementById('mt').value = machTool.toFixed(2);
             d.getElementById('total_tax').value = totalTax.toFixed(2);
         }
 
@@ -50,6 +64,7 @@
 
     </script>
 </head>
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -80,17 +95,17 @@
         padding: 0;
     }
 
-    nav ul li {
-        display: inline;
-        margin: 5px;
-    }
+        nav ul li {
+            display: inline;
+            margin: 5px;
+        }
 
     type="text/css" > body {
         text-align: center;
     }
 
     p.one {
-        // straight across bar if you add <p class="one"> </p> to body border-style: solid;
+        /*straight across bar if you add <p class="one"> </p> to body border-style: solid;*/
         border-width: 5px;
         border-color: green;
     }
@@ -156,10 +171,8 @@
     }
 </style>
 
-
 <body>
     <center>
-
         <div style="width:500px;height:500px;border-radius:20px;border:6px outset green;">
 
             <!-- Title of calculator-->
@@ -168,9 +181,9 @@
             <script src="OMBProjects/js/latestjquery.js"></script>
             <script src="OMBProjects/js/m-dropdown.min.js"></script>
             <script src="OMBProjects/js/m-radio.min.js"></script> -->
-
+            <!--<p class="subtitle" style="color: red">*Actual tax may vary</p>-->
             <br>
-
+            
             <!-- User input -->
             <b>Assessed Property Value</b> ($) <br>
             <form name="test" id="test">
@@ -181,20 +194,73 @@
             <a href="#" class="classname" onclick="calc()">Estimate Tax</a> <br><br>
 
             <!-- Types of taxation -->
-            <b>Real Estate Tax</b> ($) <br> 
-                <input type="text" style="color: black; font-weight: bold" class="box" id="re" name="realEstate" disabled="disabled"> <br>
+            <b>Real Estate Tax</b> ($) <br>
+            <input type="text" style="color: black; font-weight: bold" class="box" id="re" name="realEstate" disabled="disabled">
+            <select style="color: black; font-weight: bold;" id="re_rate">
+                <option value=".819">0.819% (2015 Rate)</option>
+                <option value="2">2.000%</option>
+                <option value="3">3.000%</option>
+                <option value="4.28">4.280%</option>
+                <option value="5">5.000%</option>
+            </select>
+            <br>
 
-            <b>Fire Levy</b> ($) <br> 
-                <input type="text" style="color: black; font-weight: bold" class="box" id="fl" name="fire" disabled="disabled"><br>
+            <b>Personal Property</b> ($) <br>
+            <input type="text" style="color: black; font-weight: bold" class="box" id="pp" name="personal" disabled="disabled">
+            <select style="color: black; font-weight: bold" id="pp_rate">
+                <option value="4.28">4.280% (2015 Rate)</option>
+                <option value=".819">0.819%</option>
+                <option value="2">2.000%</option>
+                <option value="3">3.000%</option>
+                <option value="5">5.000%</option>
+            </select>
+            <br>
 
-            <b>Stormwater Management Fee</b> ($) <br> 
-                <input type="text" style="color: black; font-weight: bold" class="box" id="sw" name="stormWater" disabled="disabled"> <br><br><br>
+            <!--
+            <b>Mobile Home</b> ($) <br>
+            <input type="text" style="color: black; font-weight: bold" class="box" id="mh" name="mobHome" disabled="disabled">
+            <select style="color: black; font-weight: bold" id="mh_rate">
+                <option value=".819">0.819% (2015 Rate)</option>
+                <option value="2">2.000%</option>
+                <option value="3">3.000%</option>
+                <option value="4.28">4.280%</option>
+                <option value="5">5.000%</option>
+            </select>
+            <br>
+            -->
+
+            <b>Public Service</b> ($) <br>
+            <input type="text" style="color: black; font-weight: bold" class="box" id="ps" name="pubServ" disabled="disabled">
+            <select style="color: black; font-weight: bold" id="ps_rate">
+                <option value=".819">0.819% (2015 Rate)</option>
+                <option value="2">2.000%</option>
+                <option value="3">3.000%</option>
+                <option value="4.28">4.280%</option>
+                <option value="5">5.000%</option>
+            </select>
+            <br><br><br>
+
+            <!--
+            <b>Machinery & Tools</b> ($) <br>
+            <input type="text" style="color: black; font-weight: bold" class="box" id="mt" name="machTool" disabled="disabled">
+            <select style="color: black; font-weight: bold" id="mt_rate">
+                <option value="4.28">4.280% (2015 Rate)</option>
+                <option value=".819">0.819%</option>
+                <option value="2">2.000%</option>
+                <option value="3">3.000%</option>
+                <option value="5">5.000%</option>
+            </select>
+            <br><br><br>
+            -->
 
             <!-- Total tax-->
-            <b>Total Albemarle County Tax</b> ($) <br> 
-                <input type="text" style="color: black; font-weight: bold" class="box" id="total_tax" name="totalTax" disabled="disabled"> <br>
+            <b>Total Albemarle County Tax</b> ($) <br>
+            <input type="text" style="color: black; font-weight: bold" class="box" id="total_tax" name="totalTax" disabled="disabled">
+            <p class="subtitle" style="color: red">*Actual tax may vary</p>
+            <br>
 
         </div>
     </center>
 </body>
 </html>
+
