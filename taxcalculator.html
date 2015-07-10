@@ -3,7 +3,9 @@
 <head>
     <title>Albemarle County Tax Calculator</title>
     <link href="css/m-styles.min.css" rel="stylesheet">
-    <script type = "text/javascript">
+    <script type="text/javascript">
+
+        //calculates tax values using input number and formats for output
         function calc() {
             var d = document;
             var pl = 2;
@@ -20,10 +22,10 @@
             var fire = round(total * 0.1, pl);
             var stormWater = round(total * 0.04, pl);
             var totalTax = round(realEstate + fire + stormWater, pl);
-            d.getElementById( 're' ).value = realEstate;
-            d.getElementById( 'fl' ).value = fire;
-            d.getElementById('sw').value = stormWater;
-            d.getElementById('total_tax').value = totalTax;
+            d.getElementById('re').value = realEstate.toFixed(2);
+            d.getElementById('fl').value = fire.toFixed(2);
+            d.getElementById('sw').value = stormWater.toFixed(2);
+            d.getElementById('total_tax').value = totalTax.toFixed(2);
         }
 
         //generic accurate rounding function taken from solution online: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
@@ -35,7 +37,7 @@
             exp = +exp;
 
             if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0))
-                return NaN;
+                return "Error";
 
             // Shift
             value = value.toString().split('e');
@@ -78,115 +80,121 @@
         padding: 0;
     }
 
-        nav ul li {
-            display: inline;
-            margin: 5px;
-        }
-type="text/css">
-body {
-    text-align: center;
-}
+    nav ul li {
+        display: inline;
+        margin: 5px;
+    }
 
-p.one {
-// straight across bar if you add <p class="one">  </p> to body
-    border-style: solid;
-    border-width: 5px;
-    border-color: green;
-}
+    type="text/css" > body {
+        text-align: center;
+    }
 
-
+    p.one {
+        // straight across bar if you add <p class="one"> </p> to body border-style: solid;
+        border-width: 5px;
+        border-color: green;
+    }
 </style>
 
 <style type="text/css">
-.classname {
-	-moz-box-shadow:inset 0px 1px 0px 0px #000000;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #000000;
-	box-shadow:inset 0px 1px 0px 0px #000000;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #2eb812), color-stop(1, #bfffa6) );
-	background:-moz-linear-gradient( center top, #2eb812 5%, #bfffa6 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#2eb812', endColorstr='#bfffa6');
-	background-color:#2eb812;
-	-webkit-border-top-left-radius:37px;
-	-moz-border-radius-topleft:37px;
-	border-top-left-radius:37px;
-	-webkit-border-top-right-radius:0px;
-	-moz-border-radius-topright:0px;
-	border-top-right-radius:0px;
-	-webkit-border-bottom-right-radius:37px;
-	-moz-border-radius-bottomright:37px;
-	border-bottom-right-radius:37px;
-	-webkit-border-bottom-left-radius:0px;
-	-moz-border-radius-bottomleft:0px;
-	border-bottom-left-radius:0px;
-	text-indent:0;
-	border:2px solid #0f0806;
-	display:inline-block;
-	color:#0a0a0a;
-	font-family:Arial;
-	font-size:17px;
-	font-weight:bold;
-	font-style: normal;
-	height:60px;
-	line-height:65px;
-	width:131px;
-	text-decoration:none;
-	text-align:center;
-	text-shadow:1px 1px 0px #fff9d4;
-}
-.classname:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bfffa6), color-stop(1, #2eb812) );
-	background:-moz-linear-gradient( center top, #bfffa6 5%, #2eb812 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bfffa6', endColorstr='#2eb812');
-	background-color:#bfffa6;
-}.classname:active {
-	position:relative;
-	top:1px;
-	}
+    .classname {
+        -moz-box-shadow: inset 0px 1px 0px 0px #000000;
+        -webkit-box-shadow: inset 0px 1px 0px 0px #000000;
+        box-shadow: inset 0px 1px 0px 0px #000000;
+        background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #2eb812), color-stop(1, #bfffa6) );
+        background: -moz-linear-gradient( center top, #2eb812 5%, #bfffa6 100% );
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2eb812', endColorstr='#bfffa6');
+        background-color: #2eb812;
+        -webkit-border-top-left-radius: 37px;
+        -moz-border-radius-topleft: 37px;
+        border-top-left-radius: 37px;
+        -webkit-border-top-right-radius: 0px;
+        -moz-border-radius-topright: 0px;
+        border-top-right-radius: 0px;
+        -webkit-border-bottom-right-radius: 37px;
+        -moz-border-radius-bottomright: 37px;
+        border-bottom-right-radius: 37px;
+        -webkit-border-bottom-left-radius: 0px;
+        -moz-border-radius-bottomleft: 0px;
+        border-bottom-left-radius: 0px;
+        text-indent: 0;
+        border: 2px solid #0f0806;
+        display: inline-block;
+        color: #0a0a0a;
+        font-family: Arial;
+        font-size: 17px;
+        font-weight: bold;
+        font-style: normal;
+        height: 60px;
+        line-height: 65px;
+        width: 131px;
+        text-decoration: none;
+        text-align: center;
+        text-shadow: 1px 1px 0px #fff9d4;
+    }
 
+        .classname:hover {
+            background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bfffa6), color-stop(1, #2eb812) );
+            background: -moz-linear-gradient( center top, #bfffa6 5%, #2eb812 100% );
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bfffa6', endColorstr='#2eb812');
+            background-color: #bfffa6;
+        }
+
+        .classname:active {
+            position: relative;
+            top: 1px;
+        }
 </style>
 
 <style>
-    .box{
-    	border:2px solid #456879;
-		border-radius:10px;
-		height: 22px;
-		width: 230px;
-		text-align: center;
-        }
+    .box {
+        border: 2px solid #456879;
+        border-radius: 10px;
+        height: 22px;
+        width: 230px;
+        text-align: center;
+    }
 </style>
 
 
 <body>
-<center>
+    <center>
 
-<div style="width:500px;height:500px;border-radius:20px;border:6px outset green;">
+        <div style="width:500px;height:500px;border-radius:20px;border:6px outset green;">
 
+            <!-- Title of calculator-->
+            <h1>Albemarle County Tax Calculator</h1>
+            <!--
+            <script src="OMBProjects/js/latestjquery.js"></script>
+            <script src="OMBProjects/js/m-dropdown.min.js"></script>
+            <script src="OMBProjects/js/m-radio.min.js"></script> -->
 
-    <h1>Albemarle County Tax Calculator</h1>
-    <!--
-    <script src="OMBProjects/js/latestjquery.js"></script>
-    <script src="OMBProjects/js/m-dropdown.min.js"></script>
-    <script src="OMBProjects/js/m-radio.min.js"></script> -->
+            <br>
 
-        <br>  
-    	<b>Assessed Property Value</b> ($) <br>
-    		<form name="test" id="test">
-        		<input type="text" class="box" id="total_inc" placeholder="e.g. 2200" />
-			</form> <br>
+            <!-- User input -->
+            <b>Assessed Property Value</b> ($) <br>
+            <form name="test" id="test">
+                <input type="text" style="color: black; font-weight: bold" class="box" id="total_inc" placeholder="e.g. 2200" />
+            </form> <br>
 
-    	<a href="#" class="classname" onclick="calc()">Estimate Tax</a> <br><br>
-    
-        <b>Real Estate Tax</b> ($) <br> <input type="text" class="box" id="re" name="realEstate" disabled=1> <br>
-        <b>Fire Levy</b> ($) <br> <input type="text" class="box" id="fl" name="fire" disabled=1> <br>
-        <b>Stormwater Management Fee</b> ($) <br> <input type="text" class="box" id="sw" name="stormWater" disabled=1 > <br><br><br>
+            <!-- Button click -->
+            <a href="#" class="classname" onclick="calc()">Estimate Tax</a> <br><br>
 
-            
-		<b>Total Albemarle County Tax</b> ($) <br> <input type="text" class="box" id="total_tax" name="totalTax" disabled=1> <br>
+            <!-- Types of taxation -->
+            <b>Real Estate Tax</b> ($) <br> 
+                <input type="text" style="color: black; font-weight: bold" class="box" id="re" name="realEstate" disabled="disabled"> <br>
 
-</div>
+            <b>Fire Levy</b> ($) <br> 
+                <input type="text" style="color: black; font-weight: bold" class="box" id="fl" name="fire" disabled="disabled"><br>
 
-	</div>    
+            <b>Stormwater Management Fee</b> ($) <br> 
+                <input type="text" style="color: black; font-weight: bold" class="box" id="sw" name="stormWater" disabled="disabled"> <br><br><br>
 
-    </center>     
-    </body>
- </html>
+            <!-- Total tax-->
+            <b>Total Albemarle County Tax</b> ($) <br> 
+                <input type="text" style="color: black; font-weight: bold" class="box" id="total_tax" name="totalTax" disabled="disabled"> <br>
+
+        </div>
+    </center>
+</body>
+</html>
