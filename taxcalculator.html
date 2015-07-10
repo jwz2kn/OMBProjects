@@ -13,7 +13,7 @@
             //.replace removes the non-numeric values entered before we process the number, other than the . and the -
             // var total = parseFloat(d.getElementById('total_inc').value.replace(/[^\d.-/]/g, ''));
             //.replace removes the commas entered before we process the number
-            var total = parseFloat(d.getElementById('total_inc').value.replace(/,/g, ''));
+            var total = parseFloat(d.getElementById('total_inc').value.replace(/[,$]/g, ''));
             if (total < 0) {
                 total = 0;
             }
@@ -186,12 +186,15 @@
             
             <!-- User input -->
             <b>Assessed Property Value</b> ($) <br>
-            <form name="test" id="test">
-                <input type="text" style="color: black; font-weight: bold" class="box" id="total_inc" placeholder="e.g. 2200" />
+            <form name="field" id="field">
+            <!-- Handles enter button as opposed to click -->
+                <input type="text" onkeydown="if (event.keyCode == 13) { event.preventDefault(); document.getElementById('estimate').click() }" 
+                       style="font-weight: bold" class="box" id="total_inc" placeholder="e.g. 2200" />
             </form> <br>
 
             <!-- Button click -->
-            <a href="#" class="classname" onclick="calc()">Estimate Tax</a> <br><br>
+            <!-- This was <a></a> with href = "#"-->
+            <a href="#" id="estimate" class="classname" onclick="calc()">Estimate Tax</a> <br><br>
 
             <!-- Types of taxation -->
             <b>Real Estate Tax</b> ($) <br>
