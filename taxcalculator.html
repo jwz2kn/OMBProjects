@@ -12,12 +12,11 @@
 
             //.replace removes the non-numeric values entered before we process the number, other than the . and the -
             // var total = parseFloat(d.getElementById('total_inc').value.replace(/[^\d.-/]/g, ''));
-            //.replace removes the commas entered before we process the number
+            //.replace removes the commas and $ signs entered before we process the number
             var total = parseFloat(d.getElementById('total_inc').value.replace(/[,$]/g, ''));
             if (total < 0) {
                 total = 0;
             }
-            total = round(total, pl);
 
             var re_rate = parseFloat(d.getElementById('re_rate').value) / 100;
             var pp_rate = parseFloat(d.getElementById('pp_rate').value) / 100;
@@ -26,12 +25,13 @@
             //var mt_rate = parseFloat(d.getElementById('mt_rate').value) / 100;
 
 
-            var realEstate = round(total * re_rate, pl)
+            var realEstate =  round(total * re_rate, pl);
             var personal =  round(total * pp_rate, pl);
             //var mobHome = round(total * mh_rate, pl);
             var pubServ = round(total * ps_rate, pl);
-           // var machTool = round(total * mt_rate, pl);
-            var totalTax = round(realEstate + personal + pubServ, pl);
+            // var machTool = round(total * mt_rate, pl);
+
+            var totalTax = isNumeric(total) ? round(realEstate + personal + pubServ, pl): 'Error. Please enter valid number.';
 
 
             d.getElementById('re').value = realEstate.toFixed(2);
@@ -39,7 +39,7 @@
             //d.getElementById('mh').value = mobHome.toFixed(2);
             d.getElementById('ps').value = pubServ.toFixed(2);
             //d.getElementById('mt').value = machTool.toFixed(2);
-            d.getElementById('total_tax').value = totalTax.toFixed(2);
+            d.getElementById('total_tax').value = totalTax;
         }
 
         //generic accurate rounding function taken from solution online: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
@@ -51,7 +51,7 @@
             exp = +exp;
 
             if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0))
-                return "Error";
+                return NaN;
 
             // Shift
             value = value.toString().split('e');
@@ -60,6 +60,11 @@
             // Shift back
             value = value.toString().split('e');
             return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
+        }
+
+        //generic function that checks whether an entry is numeric
+        function isNumeric(o) {
+            return typeof o === 'number' && isFinite(o);
         }
 
     </script>
@@ -189,7 +194,7 @@
             <form name="field" id="field">
             <!-- Handles enter button as opposed to click -->
                 <input type="text" onkeydown="if (event.keyCode == 13) { event.preventDefault(); document.getElementById('estimate').click() }" 
-                       style="font-weight: bold" class="box" id="total_inc" placeholder="e.g. 2200" />
+                       style="font-weight: bold" class="box" id="total_inc" placeholder="e.g. 2200" maxlength="20" />
             </form> <br>
 
             <!-- Button click -->
