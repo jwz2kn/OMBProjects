@@ -20,13 +20,13 @@
             // SET THE RANGE OF THE URL to cover the columns A through (some_Letter) to create a bar graph with that many columns for the same x-axis entry
             var queryString = encodeURIComponent('SELECT H:M')
             var query = new google.visualization.Query(
-                'https://docs.google.com/a/virginia.edu/spreadsheets/d/1Rf33WeuGkOgVd6nT_SK1XwfdFK8J3ZZPQ_QbeyOGt5A/edit?usp=sharing/gviz/tq?tq=&range=A:H');
+                'http://www.albemarle.org/upload/images/forms_center/departments/Budget/forms/Revenue_and_expenditure_trends_FY05-FY16.xls');
             query.send(draw);
         }
 
         function draw(response) {
             if (response.isError()) {
-                alert('Error in query');
+                alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
             }
 
             var budgetData = response.getDataTable();
