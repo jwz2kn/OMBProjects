@@ -13,7 +13,7 @@
         //google.setOnLoadCallback(initialize);
 
 
-        
+
             // The URL of the spreadsheet to source data from.
             // "create" the data table
             // SET THE RANGE OF THE URL to cover the columns A through (some_Letter) to create a bar graph with that many columns for the same x-axis entry
@@ -22,20 +22,21 @@
         /* WARNING WARNING WARNING: COLUMN K WILL BREAK THE CODE BECAUSE IT HAS DIFFERENT FORMATTING */
         // note that the end range value includes the values for the next column too
         // and the start column gets the column ahead of it too
-        // THAT DOESN'T MAKE SENSE TO ME, BUT THAT'S THE CASE HERE 
-           
+        // THAT DOESN'T MAKE SENSE TO ME, BUT THAT'S THE CASE HERE --> UPDATE: I used the wrong page of the worksheet - I have no idea why the GID is not working
+        // to let me access the specific page of the spreadsheet. It has really been throwing off my coding and progress
+
         var query = new google.visualization.Query(
            'https://docs.google.com/spreadsheets/d/1_fLUFj09BvxUOEUYXINhTubA8cZQnVU3yaIf3cz32HQ/edit?usp=sharing/gviz/tq?gid=83532223&range=A:J');
 
-            var query2 = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1_fLUFj09BvxUOEUYXINhTubA8cZQnVU3yaIf3cz32HQ/edit?usp=sharing/gviz/tq?gid=83532223&range=A:I');
+          //  var query2 = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1_fLUFj09BvxUOEUYXINhTubA8cZQnVU3yaIf3cz32HQ/edit?usp=sharing/gviz/tq?gid=83532223&range=A:I');
 
-            
-            
+
+
             query.send(draw);
-           
 
-          
-        // draws the Chart that shows total expenditures 
+
+
+        // draws the Chart that shows total expenditures
         function draw(response) {
             if (response.isError()) {
                 alert('Error in query');
@@ -46,25 +47,30 @@
             var view = new google.visualization.DataView(budgetData);
             view.hideColumns([1, 2, 3, 4, 5, 6, 7, 8]);
 
-
+        
             var bigChart = new google.visualization.ColumnChart(document.getElementById('totalchart_div'));
             bigChart.draw(view, {
-                'title': 'OMB Sample Data',
+                'title': 'Comparative Total Expenditures of Benchmark Localities',
                 'colors': ['blue', 'orange', 'gold', 'maroon', 'black']
-            });      
+            });
 
-           
-
-
-            
-
+            console.log("Chart with all localities' expenditures columns A:J - number of columns: " + budgetData.getNumberOfColumns());
+            console.log("Chart with all localities' expenditures rows - number of columns: " + budgetData.getNumberOfColumns());
+            // TODO: Unsuccessful thus far in getting a click on a certain bar to just show that locality's expenditures, but can show all expenditure data of all localities
             function myClickHandler() {
                 var selection = bigChart.getSelection();
-                // do an if statement to see if the chart clicked was the totalchart
-                if (selection) {
-                    query2.send(draw2); 
+                for (var i = 0; i < selection.length; i++) {
+                    // check to see which locality was clicked
+                    var item = selection[i];
+                    if (item.row = 1) { //drawAlbemarle
+                        query.send(drawAlbemarle);
+                    }
+
+                    else {
+                        query.send(draw2); //draw a graph showing all the spending of all the localities
+                    }
                 }
-            } 
+            }
 
             google.visualization.events.addListener(bigChart, 'select', myClickHandler);
 
@@ -114,13 +120,32 @@
                 });
         }
 
+
+        function drawAlbemarle(response) {
+            if (response.isError()) {
+                alert('Error in query');
+            }
+
+            var budgetData = response.getDataTable();
+            // move this following this line
+            var view = new google.visualization.DataView(budgetData);
+            view.hideRows([2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+
+            var bigChart = new google.visualization.ColumnChart(document.getElementById('cchart_div'));
+            bigChart.draw(view, {
+                'title': 'Albemarle Spending',
+                'colors': ['blue', 'orange', 'gold', 'maroon', 'black']
+            });
+        }
+
         function draw2(response) {
             if (response.isError()) {
                 alert('Error in query');
             }
 
             var budgetData1 = response.getDataTable();
-           
+
             var cchart = new google.visualization.ColumnChart(
          document.getElementById('cchart_div'));
 
@@ -134,17 +159,17 @@
 
 <body>
     <table align="center">
-        <tr valign="top" align ="center">
+        <tr valign="top" align="center">
             <td style="width: 50%;">
                 <div id="map_div" style="width: 600px; height: 400px;"></div>
             </td>
         </tr>
-        <tr align ="center">
+        <tr align="center">
             <td style="width: 50%;">
                 <div id="table_div" style="width: 600px; height: 200px;"></div>
             </td>
         </tr>
-        <tr align ="center">
+        <tr align="center">
             <td colspan=2>
                 <div id="totalchart_div" style="width: 650px; height: 600px;"></div>
             </td>
