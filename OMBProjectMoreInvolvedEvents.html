@@ -67,6 +67,11 @@
             console.log("Chart with all localities' expenditures rows - number of columns: " + budgetData.getNumberOfColumns());
             // TODO: Unsuccessful thus far in getting a click on a certain bar to just show that locality's expenditures, but can show all expenditure data of all localities
             function myClickHandler() {
+                window.scrollTo(0, document.body.scrollHeight);
+                if (document.getElementById("cchart_div").style.display == 'none') {
+                    document.getElementById("cchart_div").style.display = '';
+                    window.scrollTo(0, document.body.scrollHeight);
+                }
                 var selection = bigChart.getSelection();
                 for (var i = 0; i < selection.length; i++) {
                     // check to see which locality was clicked
@@ -107,7 +112,7 @@
         </tr>
         <tr align="center">
             <td colspan=2>
-                <div id="cchart_div" style="width: 650px; height: 600px;"></div>
+                <div id="cchart_div" style="display: none; width : 650px; height: 600px;"></div>
             </td>
         </tr>
     </table>
