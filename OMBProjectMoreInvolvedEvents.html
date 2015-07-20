@@ -26,7 +26,7 @@
         // to let me access the specific page of the spreadsheet. It has really been throwing off my coding and progress
 
         var query = new google.visualization.Query(
-           'https://docs.google.com/spreadsheets/d/1_fLUFj09BvxUOEUYXINhTubA8cZQnVU3yaIf3cz32HQ/edit?usp=sharing/gviz/tq?gid=83532223&range=A:J');
+           'https://docs.google.com/spreadsheets/d/1_fLUFj09BvxUOEUYXINhTubA8cZQnVU3yaIf3cz32HQ/edit?usp=sharing/gviz/tq?&range=B:K&gid=83532223');
 
           //  var query2 = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1_fLUFj09BvxUOEUYXINhTubA8cZQnVU3yaIf3cz32HQ/edit?usp=sharing/gviz/tq?gid=83532223&range=A:I');
 
@@ -46,12 +46,21 @@
             // move this following this line
             var view = new google.visualization.DataView(budgetData);
             view.hideColumns([1, 2, 3, 4, 5, 6, 7, 8]);
-
-        
+            view.hideRows([10, 11]);
+           
+            /*
+            Failed attempt at getting only one "Albemarle" column to show up
+            for (var i = 0; i < selection.length; i++) {
+                // check to see which locality was clicked
+                var item = selection[i];
+                if (selection[i].row != 0 && selection[i].row.getValue() == "Albemarle") {
+                    view.hideColumns([i]);
+                }
+            }*/
             var bigChart = new google.visualization.ColumnChart(document.getElementById('totalchart_div'));
             bigChart.draw(view, {
                 'title': 'Comparative Total Expenditures of Benchmark Localities ($)',
-                'colors': ['blue', 'orange', 'gold', 'maroon', 'black']
+                'colors': ['blue', 'orange', 'gold', 'red', 'black']
             });
 
             console.log("Chart with all localities' expenditures columns A:J - number of columns: " + budgetData.getNumberOfColumns());
@@ -83,7 +92,7 @@
             var bigChart = new google.visualization.ColumnChart(document.getElementById('cchart_div'));
             bigChart.draw(view, {
                 'title': 'County Expenditures Per Person ($)',
-                'colors': ['blue', 'orange', 'gold', 'maroon', 'black']
+                'colors': ['blue', 'orange', 'gold', 'red', 'black']
             });
         }
     </script>
