@@ -38,7 +38,7 @@
         // draws the Chart that shows total expenditures 
         function draw(response) {
             if (response.isError()) {
-                alert('Error in query');
+                alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
             }
 
             var budgetData = response.getDataTable();

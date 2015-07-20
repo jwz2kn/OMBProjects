@@ -19,27 +19,28 @@
             }
 
             var re_rate = parseFloat(d.getElementById('re_rate').value) / 100;
-            var pp_rate = parseFloat(d.getElementById('pp_rate').value) / 100;
+            //var pp_rate = parseFloat(d.getElementById('pp_rate').value) / 100;
             //var mh_rate = parseFloat(d.getElementById('mh_rate').value) / 100;
-            var ps_rate = parseFloat(d.getElementById('ps_rate').value) / 100;
+            //var ps_rate = parseFloat(d.getElementById('ps_rate').value) / 100;
             //var mt_rate = parseFloat(d.getElementById('mt_rate').value) / 100;
 
-
-            var realEstate =  round(total * re_rate, pl);
-            var personal =  round(total * pp_rate, pl);
+            //var realEstate = round(total * re_rate, pl);
+            var realEstate = isNumeric(total) ? round(total * re_rate, pl).toFixed(2) : 'Error. Please enter valid number.';
+            //realEstate = isNumeric(total) ? realEstate + 0 : 'Error. Please enter valid number.' ;
+            //var personal =  round(total * pp_rate, pl);
             //var mobHome = round(total * mh_rate, pl);
-            var pubServ = round(total * ps_rate, pl);
+            //var pubServ = round(total * ps_rate, pl);
             // var machTool = round(total * mt_rate, pl);
 
-            var totalTax = isNumeric(total) ? round(realEstate + personal + pubServ, pl): 'Error. Please enter valid number.';
+            //var totalTax = isNumeric(total) ? round(realEstate + personal, pl): 'Error. Please enter valid number.';
 
 
-            d.getElementById('re').value = realEstate.toFixed(2);
-            d.getElementById('pp').value = personal.toFixed(2);
+            d.getElementById('re').value = realEstate;
+            //d.getElementById('pp').value = personal.toFixed(2);
             //d.getElementById('mh').value = mobHome.toFixed(2);
-            d.getElementById('ps').value = pubServ.toFixed(2);
+            //d.getElementById('ps').value = pubServ.toFixed(2);
             //d.getElementById('mt').value = machTool.toFixed(2);
-            d.getElementById('total_tax').value = totalTax;
+            //d.getElementById('total_tax').value = totalTax;
         }
 
         //generic accurate rounding function taken from solution online: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
@@ -64,7 +65,7 @@
 
         //generic function that checks whether an entry is numeric
         function isNumeric(o) {
-            return typeof o === 'number' && isFinite(o);
+            return !isNaN(parseFloat(o)) && isFinite(o);
         }
 
     </script>
@@ -178,10 +179,11 @@
 
 <body>
     <center>
-        <div style="width:500px;height:500px;border-radius:20px;border:6px outset green;">
+        <div style="width:500px;height:400px;border-radius:20px;border:6px outset green;">
 
             <!-- Title of calculator-->
-            <h1>Albemarle County Tax Calculator</h1>
+            <h1>Albemarle County Real Estate Tax Estimator</h1>
+            <p class="subtitle" style="color: red">*Actual tax may vary</p>
             <!--
             <script src="OMBProjects/js/latestjquery.js"></script>
             <script src="OMBProjects/js/m-dropdown.min.js"></script>
@@ -194,7 +196,7 @@
             <form name="field" id="field">
             <!-- Handles enter button as opposed to click -->
                 <input type="text" onkeydown="if (event.keyCode == 13) { event.preventDefault(); document.getElementById('estimate').click() }" 
-                       style="font-weight: bold" class="box" id="total_inc" placeholder="e.g. 2200" maxlength="20" />
+                       style="font-weight: bold" class="box" id="total_inc" placeholder="e.g. 200000" maxlength="20" />
             </form> <br>
 
             <!-- Button click -->
@@ -203,17 +205,22 @@
 
             <!-- Types of taxation -->
             <b>Real Estate Tax</b> ($) <br>
-            <input type="text" style="color: black; font-weight: bold" class="box" id="re" name="realEstate" disabled="disabled">
+            <input type="text" style="color: black; font-weight: bold" class="box" id="re" name="realEstate" disabled="disabled"> <br> <br>
             <select style="color: black; font-weight: bold;" id="re_rate">
-                <option value=".819">0.819% (2015 Rate)</option>
-                <option value="2">2.000%</option>
-                <option value="3">3.000%</option>
-                <option value="4.28">4.280%</option>
-                <option value="5">5.000%</option>
+                <option value="0.819">0.819% (2016 Rate)</option>
+                <option value="0.789">0.789%</option>
+                <option value="0.799">0.799% (2015 Rate)</option>
+                <option value="0.809">0.809%</option>
+                <option value="0.829">0.829%</option>
+                <option value="0.839">0.839%</option>
+                <option value="0.849">0.849%</option>
+                <option value="0.859">0.859%</option>
             </select>
+            
             <br>
 
-            <b>Personal Property</b> ($) <br>
+            <!--
+                <b>Personal Property</b> ($) <br>
             <input type="text" style="color: black; font-weight: bold" class="box" id="pp" name="personal" disabled="disabled">
             <select style="color: black; font-weight: bold" id="pp_rate">
                 <option value="4.28">4.280% (2015 Rate)</option>
@@ -224,7 +231,7 @@
             </select>
             <br>
 
-            <!--
+            
             <b>Mobile Home</b> ($) <br>
             <input type="text" style="color: black; font-weight: bold" class="box" id="mh" name="mobHome" disabled="disabled">
             <select style="color: black; font-weight: bold" id="mh_rate">
@@ -235,7 +242,7 @@
                 <option value="5">5.000%</option>
             </select>
             <br>
-            -->
+            
 
             <b>Public Service</b> ($) <br>
             <input type="text" style="color: black; font-weight: bold" class="box" id="ps" name="pubServ" disabled="disabled">
@@ -248,7 +255,7 @@
             </select>
             <br><br><br>
 
-            <!--
+            
             <b>Machinery & Tools</b> ($) <br>
             <input type="text" style="color: black; font-weight: bold" class="box" id="mt" name="machTool" disabled="disabled">
             <select style="color: black; font-weight: bold" id="mt_rate">
@@ -259,13 +266,15 @@
                 <option value="5">5.000%</option>
             </select>
             <br><br><br>
+              
             -->
+          
 
-            <!-- Total tax-->
+            <!-- Total tax--> <!--
             <b>Total Albemarle County Tax</b> ($) <br>
             <input type="text" style="color: black; font-weight: bold" class="box" id="total_tax" name="totalTax" disabled="disabled">
-            <p class="subtitle" style="color: red">*Actual tax may vary</p>
-            <br>
+            
+            <br>-->
 
         </div>
     </center>
