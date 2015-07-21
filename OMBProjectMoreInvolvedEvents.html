@@ -24,12 +24,11 @@
         // and the start column gets the column ahead of it too
         // THAT DOESN'T MAKE SENSE TO ME, BUT THAT'S THE CASE HERE --> UPDATE: I used the wrong page of the worksheet - I have no idea why the GID is not working
         // to let me access the specific page of the spreadsheet. It has really been throwing off my coding and progress
-
+       
         var query = new google.visualization.Query(
-           'https://docs.google.com/spreadsheets/d/1_fLUFj09BvxUOEUYXINhTubA8cZQnVU3yaIf3cz32HQ/edit?usp=sharing/gviz/tq?&range=B:K&gid=83532223');
+           'https://docs.google.com/spreadsheets/d/162mgBt9bYZRqdtahKdnuD2PDqDPHcJuXAC1JAVo1vA4/edit?usp=sharing/gviz/tq?&range=B:K&gid=1521108462');
 
-          //  var query2 = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1_fLUFj09BvxUOEUYXINhTubA8cZQnVU3yaIf3cz32HQ/edit?usp=sharing/gviz/tq?gid=83532223&range=A:I');
-
+         
 
 
             query.send(draw);
@@ -70,7 +69,7 @@
             function myClickHandler() {
                 window.scrollTo(0, document.body.scrollHeight);
                 if (document.getElementById("cchart_div").style.display == 'none' || 
-                    document.getElementByID("pchart_div").style.display == 'none') {
+                    document.getElementById("pchart_div").style.display == 'none') {
                     document.getElementById("cchart_div").style.display = '';
                     //document.getElementById("pchart_div").style.display = '';
                     window.scrollTo(0, document.body.scrollHeight);
