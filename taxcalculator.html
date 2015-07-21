@@ -178,12 +178,13 @@
 </style>
 
 <body>
+    <p>Alb. Co. Test2</p>
     <center>
-        <div style="width:500px;height:400px;border-radius:20px;border:6px outset green;">
+        <div style="width:500px;height:500px;border-radius:20px;border:6px outset green;">
 
             <!-- Title of calculator-->
-            <h1>Albemarle County Real Estate Tax Estimator</h1>
-            <p class="subtitle" style="color: red">*Actual tax may vary</p>
+            <h1>Albemarle County Real Estate Tax Estimator V2.0</h1>
+            <p class="subtitle" style="color: red">*Calculations for one fiscal year<br>*Actual tax may vary</p>
             <!--
             <script src="OMBProjects/js/latestjquery.js"></script>
             <script src="OMBProjects/js/m-dropdown.min.js"></script>
@@ -195,6 +196,7 @@
             <b>Assessed Property Value</b> ($) <br>
             <form name="field" id="field">
             <!-- Handles enter button as opposed to click -->
+            <!-- Buggy in internet explorer-->
                 <input type="text" onkeydown="if (event.keyCode == 13) { event.preventDefault(); document.getElementById('estimate').click() }" 
                        style="font-weight: bold" class="box" id="total_inc" placeholder="e.g. 200000" maxlength="20" />
             </form> <br>
