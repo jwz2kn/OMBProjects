@@ -60,7 +60,9 @@
             bigChart.draw(view, {
                 'title': 'Comparative Total Expenditures of Benchmark Localities ($)',
                 'colors': ['limegreen', 'royalblue', 'gold', 'red', 'orange', 'purple', 'mediumturquoise', 'lightslategray'],
-                'legend': {position: 'none'}
+                'legend': {position: 'none'},
+                'animation': {"startup": true}
+
             });
 
             console.log("Chart with all localities' expenditures columns A:J - number of columns: " + budgetData.getNumberOfColumns());
@@ -120,12 +122,12 @@
     <table align="center" style="width: 650px">
         <tr align="center">
             <td colspan=2>
-                <div id="totalchart_div" style="width: 650px; height: 600px;"></div>
+                <div id="totalchart_div" style="width: 630px; height: 600px;"></div>
             </td>
         </tr>
         <tr align="center">
             <td colspan=2>
-                <div id="cchart_div" style="display: none; width : 650px; height: 600px;"></div>
+                <div id="cchart_div" style="display: none; width : 630px; height: 600px;"></div>
             </td>
         </tr>
         <tr align="center">
