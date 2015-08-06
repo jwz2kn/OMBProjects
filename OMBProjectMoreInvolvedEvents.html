@@ -9,26 +9,38 @@
             }]
           }"></script>
     <script type="text/javascript">
-        //google.load('visualization', '1', {'packages': ['table', 'map', 'corechart']});
-        //google.setOnLoadCallback(initialize);
 
 
+   
+        /* 'gviz' is a part of the URL that will not be changed - it allows the Google Visualization API to be used*/
+        var gviz = '/gviz/tq?';
 
-            // The URL of the spreadsheet to source data from.
-            // "create" the data table
-            // SET THE RANGE OF THE URL to cover the columns A through (some_Letter) to create a bar graph with that many columns for the same x-axis entry
-        //var queryString = encodeURIComponent('SELECT H:M')
+        
+        /* ATTENTION, THOSE WHO WANT TO MODIFY THE OMB PAGES: FOLLOW THE DIRECTIONS BELOW TO APPROPRIATELY MODIFY THE VARIABLES 'shareableLink', 'range', and 'gid'.*/
+        /************************************************************************************************************************************************************/
 
-        /* WARNING WARNING WARNING: COLUMN K WILL BREAK THE CODE BECAUSE IT HAS DIFFERENT FORMATTING */
-        // note that the end range value includes the values for the next column too
-        // and the start column gets the column ahead of it too
-        // THAT DOESN'T MAKE SENSE TO ME, BUT THAT'S THE CASE HERE --> UPDATE: I used the wrong page of the worksheet - I have no idea why the GID is not working
-        // to let me access the specific page of the spreadsheet. It has really been throwing off my coding and progress
-       
-        var query = new google.visualization.Query(
-           'https://docs.google.com/spreadsheets/d/162mgBt9bYZRqdtahKdnuD2PDqDPHcJuXAC1JAVo1vA4/edit?usp=sharing/gviz/tq?&range=B:K&gid=1521108462');
+        /* 'shareableLink' is the URL obtained from Google Sheets by 
+            1) Clicking on 'Share' in the Google Sheet, 
+            2) Clicking on 'Get Shareable Link', 
+            3) Making sure the setting is 'Anyone with the link can view.'
+            4) Copy the link and replace the value of var shareableLink to be the new link */
+        var shareableLink = 'https://docs.google.com/spreadsheets/d/162mgBt9bYZRqdtahKdnuD2PDqDPHcJuXAC1JAVo1vA4/edit?usp=sharing';
 
-         
+
+        /* 'range' is the range of the whole chart where the first value is the first non-empty column 
+        and the second value after the colon is the last non-empty column of the chart. 
+        YOU WILL ONLY BE CHANGING THE 2ND SUBSTRING OF var range - e.g. the part that looks like 'B:K' */
+        var range = '&range=' + 'B:K';
+
+        /* 'gid' is the unique identifier assigned to each page of a Google Sheet workbook. 
+        This number is obtained from the Sheet URL shown in your browser's search bar while you are on the specific worksheet page you wish to use.
+        It's found at the very end of that URL. DO NOT DELETE OR CHANGE THE '&' */
+        var gid = '&' + 'gid=1521108462';
+
+        /********************************************************************************************************************************************/
+        /*ATTENTION, THOSE WHO WANT TO MODIFY THE OMB PAGES: DO NOT CHANGE ANYTHING BELOW THIS LINE! */
+        var query = new google.visualization.Query( shareableLink + gviz + range + gid);
+
 
 
             query.send(draw);
@@ -42,38 +54,40 @@
             }
 
             var budgetData = response.getDataTable();
-            // move this following this line
+
+            // The following three lines of code add an extra column to the data table 'budgetData' which corresponds to the color that the row's locality will be set to
+            budgetData.addColumn({ type: 'string', role: 'style' });
+            //setValue(row ID, column ID, newValue);
+            budgetData.setValue(0, 10, 'blue'); //This changes the color of the Albemarle County bar column in the chart
+            budgetData.setValue(1, 10, 'orange'); //This changes the color of the Charlottesville bar column in the chart
+
             var view = new google.visualization.DataView(budgetData);
             view.hideColumns([1, 2, 3, 4, 5, 6, 7, 8]);
             view.hideRows([10, 11]);
            
-            /*
-            Failed attempt at getting only one "Albemarle" column to show up
-            for (var i = 0; i < selection.length; i++) {
-                // check to see which locality was clicked
-                var item = selection[i];
-                if (selection[i].row != 0 && selection[i].row.getValue() == "Albemarle") {
-                    view.hideColumns([i]);
-                }
-            }*/
             var bigChart = new google.visualization.ColumnChart(document.getElementById('totalchart_div'));
+
+           // var formatter = new google.visualization.ColorFormat();
+           // formatter.addRange(290000000, 300000000, 'limegreen', 'blue');
+            //formatter.format(budgetData, 0);
+
             bigChart.draw(view, {
-                'title': 'Comparative Total Expenditures of Benchmark Localities ($) Version 2.3',
-                'colors': ['limegreen', 'royalblue', 'gold', 'red', 'orange', 'purple', 'mediumturquoise', 'lightslategray'],
+                'title': 'Comparative Total Expenditures of Benchmark Localities ($) Version 3.0',
+                'colors': ['limegreen'],
                 'legend': {position: 'none'},
                 'animation': {"startup": true}
 
             });
 
+           
             console.log("Chart with all localities' expenditures columns A:J - number of columns: " + budgetData.getNumberOfColumns());
             console.log("Chart with all localities' expenditures rows - number of columns: " + budgetData.getNumberOfColumns());
-            // TODO: Unsuccessful thus far in getting a click on a certain bar to just show that locality's expenditures, but can show all expenditure data of all localities
+     
             function myClickHandler() {
                 window.scrollTo(0, document.body.scrollHeight);
                 if (document.getElementById("cchart_div").style.display == 'none' || 
                     document.getElementById("pchart_div").style.display == 'none') {
                     document.getElementById("cchart_div").style.display = '';
-                    //document.getElementById("pchart_div").style.display = '';
                     window.scrollTo(0, document.body.scrollHeight);
                 }
                 var selection = bigChart.getSelection();
@@ -100,20 +114,10 @@
             view.setRows([chartNum]);
             var bigChart = new google.visualization.ColumnChart(document.getElementById('cchart_div'));
             bigChart.draw(view, {
-                'title': 'County Expenditures Per Person ($)',
+                'title': 'County Expenditures Per Capita ($)',
                 'colors': ['limegreen', 'royalblue', 'gold', 'red', 'orange', 'purple', 'mediumturquoise', 'lightslategray']
             });
-            /*
-            var pChartView = new google.visualization.DataView(budgetData);
-            pChartView.hideColumns([9, 10]);
-            pChartView.hideRows(view.getViewRows());
-            pChartView.setRows([chartNum]);
-            pChartView.getTableRowIndex(chartNum);
-            var pChart = new google.visualization.PieChart(document.getElementById('pchart_div'));
-            pChart.draw(budgetData, {
-                'title': 'County Expenditures Per Person ($)',
-                'colors': ['limegreen', 'royalblue', 'gold', 'red', 'orange', 'purple', 'mediumturquoise', 'lightslategray']
-            });*/
+            
         }
     </script>
 </head>
